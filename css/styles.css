@@ -139,7 +139,15 @@ footer div {
 
 /* ABOUT */
 
-.about-div {
+.seventy-percent-div {
     display: flex;
     width: 70%;
+}
+
+/* Gallery */
+
+.seventy-percent-div-column {
+    display: flex;
+    flex-direction: column;
+    width: 70% !important;
 }
