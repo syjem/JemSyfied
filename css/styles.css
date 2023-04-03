@@ -99,7 +99,7 @@ header {
 }
 
 footer {
-    margin: 0 auto;
+    margin: 0 auto !important;
     padding: 10px;
     width: 70%;
     display: flex;
@@ -134,4 +134,12 @@ footer div {
     padding: 10px;
     font-size: 25px;
     color: rgb(4, 64, 64);
+}
+
+
+/* ABOUT */
+
+.about-div {
+    display: flex;
+    width: 70%;
 }
