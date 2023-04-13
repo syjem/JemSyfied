@@ -103,18 +103,20 @@ header {
     color: black;
 }
 
-footer {
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 auto !important;
     padding: 10px;
     width: 70%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     border-top: 2px solid rgb(221, 42, 42);
+    gap: 20px;
 }
 
 footer div {
-    width: 100%;
+    align-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,6 +138,10 @@ footer div {
     color: rgb(4, 64, 64);
 }
 
+.footer-logo-img {
+    width: 300px;
+}
+
 
 /* ABOUT */
 
@@ -151,6 +157,21 @@ footer div {
     flex-direction: column;
     width: 70% !important;
 }
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 20px;
+}
+
+.row img {
+    width: 300px;
+    height: 200px;
+}
+
+
 
 /* Contact */
 
