@@ -18,9 +18,10 @@
         </div>
         <div class="form-div col-sm-6 col-md-6 col-lg-6 col-xl-6 p-3">
             <h3 class="text-center font-weight-md">How can we help?</h3>
-            <form class="form-control p-5 form-flex" action="jem_save.php" method="POST">
-                <input type="text" class="form-control mt-3" placeholder="Name" required autocomplete="off">
-                <input type="email" class="form-control mt-3" placeholder="Email" required autocomplete="off">
+            <form class="form-control p-5 form-flex" action="/booked" method="POST">
+                <input type="text" class="form-control mt-3" name="name" placeholder="Name" required autocomplete="off">
+                <input type="email" class="form-control mt-3" name="email" placeholder="Email" required autocomplete="off">
+                <input type="date" class="form-control mt-3" name="date" placeholder="Email" required autocomplete="off">
                 <select class="form-select mt-3" name="select-services" required>
                     <option value="" selected disabled>Select Services</option>
                     <option>Wedding Photography</option>
