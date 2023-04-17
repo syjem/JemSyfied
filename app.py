@@ -12,21 +12,26 @@ app.debug = 'development'
 # Enable debug mode
 app.debug = True
 
+@app.context_processor
+def inject_current_year():
+    current_year = datetime.datetime.now().year
+    return dict(current_year=current_year)
+
 @app.route("/")
 def home():
-    return render_template("index.html", current_year=datetime.datetime.now().year)
+    return render_template("index.html")
 
 @app.route("/about")
 def about():
-    return render_template("about.html", current_year=datetime.datetime.now().year)
+    return render_template("about.html")
 
 @app.route("/gallery")
 def gallery():
-    return render_template("gallery.html", current_year=datetime.datetime.now().year)
+    return render_template("gallery.html")
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html", current_year=datetime.datetime.now().year)
+    return render_template("contact.html")
 
 
 if __name__ == '__main__':
