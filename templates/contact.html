@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+    Contact
+{% endblock %}
+
+{% block main %}
+    <div class="seventy-percent-div-column border-bottom mt-5">
+        <h1 class="text-center">We're here for you!</h1>
+        <p class="text-center">Fill out the form below, and then you're as good to go.</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 p-3">
+            <h1 class="text-center font-weight-md">Jem Sync Photography</h1>
+            <h5 class="text-center">Additional information</h5>
+            <p class="text-center">Email: jemsync143@gmail.com</p>
+            <p class="text-center">12382 Pogi street</p>
+            <p class="text-center">ZDS, Philippines</p>
+        </div>
+        <div class="form-div col-sm-6 col-md-6 col-lg-6 col-xl-6 p-3">
+            <h3 class="text-center font-weight-md">How can we help?</h3>
+            <form class="form-control p-5 form-flex" action="jem_save.php" method="POST">
+                <input type="text" class="form-control mt-3" placeholder="Name" required autocomplete="off">
+                <input type="email" class="form-control mt-3" placeholder="Email" required autocomplete="off">
+                <select class="form-select mt-3" name="select-services" required>
+                    <option value="" selected disabled>Select Services</option>
+                    <option>Wedding Photography</option>
+                    <option>Portrait Photography</option>
+                    <option>Family Photography</option>
+                    <option>Other Photography</option>
+                </select>
+                <input type="submit" class="btn mt-3 justify-content-center" id="send" value="Send">
+            </form>
+        </div>
+    </div>
+{% endblock %}
