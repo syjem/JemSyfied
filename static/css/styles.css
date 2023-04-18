@@ -181,3 +181,8 @@ footer div {
     justify-content: center;
     align-items: center;
 }
+
+.email:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
