@@ -1,22 +1,32 @@
 import re
 
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, flash, request, session, url_for, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 
-from models import db, Users
+# from models import db, Users
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' 
 
 # Configure SQLAlchemy to use SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+db = SQLAlchemy(app)
 
-# Initialize db with Flask app instance
-db.init_app(app)
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
 
-# Call create_all to create the tables
-db.create_all()
+    def __repr__(self):
+        return f'<User {self.first_name} {self.last_name}, Email: {self.email}>'
+
+with app.app_context():
+    # Call create_all to create the tables
+    db.create_all()
 
 # Set Flask app environment to development
 app.debug = 'development'
@@ -66,6 +76,11 @@ def signup():
             errors.append("Last name is too short!")
         if not email or not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             errors.append("Please enter a valid email!")
+
+        # Query the database to check if the email already exists
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            errors.append("You're using a registered email.")
 
         # Password validation regex pattern
         password_pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&_.,<>]{6,}$"
