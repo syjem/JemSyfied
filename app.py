@@ -4,15 +4,19 @@ from flask import Flask, render_template, flash, request, session, url_for, redi
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 
-from models import db
+from models import db, Users
 
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' 
 
 # Configure SQLAlchemy to use SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+
+# Initialize db with Flask app instance
 db.init_app(app)
 
+# Call create_all to create the tables
+db.create_all()
 
 # Set Flask app environment to development
 app.debug = 'development'
@@ -78,6 +82,18 @@ def signup():
                                     last_name=last_name, email=email
                                 )
         else:
+            # encrypt password
+            hashed_password = generate_password_hash(password)
+
+             # Create a new Users object and set its attributes
+            new_user = Users(first_name=first_name, last_name=last_name, email=email, password=hashed_password)
+
+            # Add the object to the session
+            db.session.add(new_user)
+
+            # Commit the session to persist the changes to the database
+            db.session.commit()
+
             return redirect("/")
 
 

@@ -11,3 +11,4 @@ class Users(db.Model):
 
     def __repr__(self):
         return f'<User {self.first_name} {self.last_name}, Email: {self.email}>'
+    
