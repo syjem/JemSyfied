@@ -32,6 +32,10 @@ def about():
 def gallery():
     return render_template("gallery.html")
 
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    return render_template("signup.html")
+
 SERVICES = [
     "Weddings",
     "Portraits",
