@@ -17,16 +17,34 @@
                 <hr class="hr"><span class="span">or</span><hr class="hr">
             </div>
 
-            <form action="/" method="post" class="form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'error' %}
+                            <div class="alert alert-danger mb-0 text-center alert-dismissible fade show" role="alert">
+                                <strong>Error! </strong>{{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info mb-0 text-center alert-dismissible fade show" role="alert">
+                                <strong>Success! </strong>{{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="/signup" method="post" class="form mt-3">
                 <div class="form-group">
                     <span class="first_name">
-                        <input type="text" id="first_name" placeholder="First Name" required autocomplete="off" name="first_name" class="form-control">
+                        <input type="text" id="first_name" placeholder="First Name" required autocomplete="off" name="first_name" value="{{ first_name }}" class="form-control">
                     </span>
                     <span class="last_name">
-                        <input type="text" id="last_name" placeholder="Last Name" required autocomplete="off" name="last_name" class="form-control">
+                        <input type="text" id="last_name" placeholder="Last Name" required autocomplete="off" name="last_name" value="{{ last_name }}" class="form-control">
                     </span>
                 </div>
-                <input type="email" class="form-control" name="email" required autocomplete="off" placeholder="Email">
+                <input type="email" class="form-control" name="email" required autocomplete="off" value="{{ email }}" placeholder="Email">
                 <input type="password" class="form-control mb-3" name="password" required autocomplete="off" placeholder="Password">
                 <input type="submit" class="btn btn-info m-auto sign-up-btn" value="Sign Up">
             </form>
