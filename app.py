@@ -4,8 +4,16 @@ from flask import Flask, render_template, flash, request, session, url_for, redi
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 
+from models import db
+
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+# Configure SQLAlchemy to use SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db.init_app(app)
+
+
 # Set Flask app environment to development
 app.debug = 'development'
 
@@ -34,6 +42,45 @@ def gallery():
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
+
+    if request.method == "POST":
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Initialize an empty list to store validation errors
+        errors = []
+
+        if not first_name:
+            errors.append("Please enter your first name!")
+        if len(first_name) < 2:
+            errors.append("First name is too short!")
+        if not last_name:
+            errors.append("Please enter your last name!")
+        if len(last_name) < 2:
+            errors.append("Last name is too short!")
+        if not email or not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            errors.append("Please enter a valid email!")
+
+        # Password validation regex pattern
+        password_pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&_.,<>]{6,}$"
+        if not password or not re.match(password_pattern, password):
+            errors.append("Password need to be at least 6 characters, with a number and a special character.")
+        
+        if errors:
+            # If there are any errors, flash them all at once as error messages
+            for error in errors:
+                flash(error, category='error')
+
+            # Render the form template with error messages and retained form data
+            return render_template("signup.html", first_name=first_name, 
+                                    last_name=last_name, email=email
+                                )
+        else:
+            return redirect("/")
+
+
     return render_template("signup.html")
 
 SERVICES = [
